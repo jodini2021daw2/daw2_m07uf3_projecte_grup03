@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Ong;
-
-
-class ControladorOng extends Controller
+use App\Models\Usuari;
+class ControladorUsuari extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +12,9 @@ class ControladorOng extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-        {
-	$ong = Ong::all();
-	return view('index', compact('ong'));
+    {
+        $usuari = Usuari::all();
+	return view('indexusuaris', compact('usuari'));
     }
 
     /**
@@ -26,7 +24,7 @@ class ControladorOng extends Controller
      */
     public function create()
     {
-        return view('crea');
+        return view('creausuaris');
     }
 
     /**
@@ -37,18 +35,16 @@ class ControladorOng extends Controller
      */
     public function store(Request $request)
     {
-        $nouOng = $request->validate([
-        'cif' => 'required|max:255',
-        'nom' => 'required|max:255',
-        'adreça' => 'required|max:255',
-        'poblacio' => 'required|max:255',
-        'comarca' => 'required|max:255',
-        'tipusOng' => 'required|max:255',
-        'utilitatPublica' => 'required|max:255',
+        $nouUsuari = $request->validate([
+	'nomUsuari' => 'required|max:255',
+	'contrasenya' => 'required|max:255',
+	'nom' => 'required|max:255',
+	'cognoms' => 'required|max:255',
+	'correu' => 'required|max:255',
+	'mobil' => 'required|max:255',
 	]);
-	$ong = Ong::create($nouOng);
-
-	return redirect('/ongs')->with('completed', 'Ong creada!');
+	$usuari = Usuari::create($nouUsuari);
+	return redirect('/usuaris')->with('completed', 'Usuari creat!');
     }
 
     /**
@@ -70,8 +66,8 @@ class ControladorOng extends Controller
      */
     public function edit($id)
     {
-        $ong = Ong::findOrFail($id);
-	 return view('actualitza', compact('ong'));
+         $usuari = Usuari::findOrFail($id);
+	 return view('actualitzausuaris', compact('usuari'));
     }
 
     /**
@@ -83,18 +79,17 @@ class ControladorOng extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dades = $request->validate([
-		        'cif' => 'required|max:255',
-		        'nom' => 'required|max:255',
-	        	'adreça' => 'required|max:255',
-	        	'poblacio' => 'required|max:255',
-	        	'comarca' => 'required|max:255',
-	       		'tipusOng' => 'required|max:255',
-	       		'utilitatPublica' => 'required|max:255',
-		]);
+         $dades = $request->validate([
+	 'nomUsuari' => 'required|max:255',
+	 'contrasenya' => 'required|max:255',
+	 'nom' => 'required|max:255',
+         'cognoms' => 'required|max:255',
+         'correu' => 'required|max:255',
+         'mobil' => 'required|max:255',
 
-		Ong::whereId($id)->update($dades);
-		return redirect('/ongs')->with('completed', 'Ong actualitzada');
+	 ]);
+	 Usuari::whereId($id)->update($dades);
+	 return redirect('/usuaris')->with('completed', 'Usuari actualitzat');
 
     }
 
@@ -104,11 +99,9 @@ class ControladorOng extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-        public function destroy($id)
+    public function destroy($id)
     {
-        $ong = ong::findOrFail($id);
-        $ong->delete();
-
-        return redirect('/ongs')->with('completed', 'ONG esborrat');    }
+       $usuari = usuari::findOrFail($id);
+       $usuari->delete();
+       return redirect('/usuaris')->with('completed', 'usuari esborrat');    }
 }
-

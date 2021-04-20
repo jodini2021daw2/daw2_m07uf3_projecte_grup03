@@ -12,7 +12,7 @@
   <table class="table">
     <thead>
         <tr class="table-primary">
-          <td># ID</td>
+	  <td># ID</td>
 	  <td>CIF</td>
           <td>Nom</td>
           <td>Adreça</td>
@@ -35,7 +35,7 @@
             <td>{{$assoc->utilitatPublica}}</td>
             <td class="text-left">
                 <a href="{{ route('ongs.edit', $assoc->id)}}" class="btn btn-success btn-sm">Edita</a>
-                <form action="{{ route('ongs.destroy', $empl->id)}}" method="post" style="display: inline-block">
+                <form action="{{ route('ongs.destroy', $assoc->id)}}" method="post" style="display: inline-block">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-danger btn-sm" type="submit">Esborra</button>
